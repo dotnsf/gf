@@ -418,7 +418,21 @@ app.get( '/file/:id/validate', function( req, res ){
                 if( id == _id ){
                   //. 必要であれば hashchainsolo 側に存在していることも確認する
                   if( settings.hashchainsolo_url ){
-
+                    //. hashchainsolo
+                    var option = {
+                      url: settings.hashchainsolo_url + '/doc/' + id,
+                      method: 'GET'
+                    };
+                    request( option, ( err0, res0, body0 ) => {
+                      if( err0 ){
+                        res.status( 400 );
+                        res.write( JSON.stringify( { status: false, message: 'found in gf, but not validated with hashchainsolo.' }, 2, null ) );
+                        res.end();
+                      }else{
+                        res.write( JSON.stringify( { status: true, message: 'validated with hashchainsolo.' }, 2, null ) );
+                        res.end();
+                      }
+                    });
                   }else{
                     res.write( JSON.stringify( { status: true }, 2, null ) );
                     res.end();

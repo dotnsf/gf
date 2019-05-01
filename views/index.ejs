@@ -77,7 +77,7 @@ function postFile(){
     contentType: false,
     processData: false,
     success: function( result, dataType ){
-      //console.log( result );
+      //console.log( result );  //. result.doc.id に file_id が入っているはず
       window.location.href = '/';
     },
     error: function( jqXHR, testStatus, errorThrown ){
